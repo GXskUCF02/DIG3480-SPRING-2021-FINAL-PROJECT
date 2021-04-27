@@ -16,6 +16,7 @@ MonoBehaviour:
   vertical: 0
   changeTime: 3
   smokeEffect: {fileID: 6778390388685532164}
+  shockedSoundEffect: {fileID: 8300000, guid: a6812351144af38419ff8124a9867711, type: 3}
 --- !u!1001 &2856110859119726661
 PrefabInstance:
   m_ObjectHideFlags: 0

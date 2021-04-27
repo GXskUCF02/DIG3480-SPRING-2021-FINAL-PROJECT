@@ -104,6 +104,7 @@ MonoBehaviour:
   vertical: 0
   changeTime: 3
   smokeEffect: {fileID: 8769457991070153793}
+  shockedSoundEffect: {fileID: 8300000, guid: a6812351144af38419ff8124a9867711, type: 3}
 --- !u!61 &8291798852275446939
 BoxCollider2D:
   m_ObjectHideFlags: 0

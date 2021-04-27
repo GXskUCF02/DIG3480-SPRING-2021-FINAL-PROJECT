@@ -14,17 +14,23 @@ public class HardRobot_Script : MonoBehaviour
     float timer;
     int direction = 1;
     bool broken = true;
+    bool stun = false;
     
     Animator animator;
 
-    private Ruby_PlayerCharacter_Script rubyController;
+    AudioSource audioSource;
+    public AudioClip shockedSoundEffect;
     
+    private Ruby_PlayerCharacter_Script rubyController; // this line of code creates a variable called "rubyController" to store information about the RubyController script!
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         timer = changeTime;
         animator = GetComponent<Animator>();
+
+        audioSource= GetComponent<AudioSource>();
 
         GameObject rubyControllerObject = GameObject.FindWithTag("RubyController"); //this line of code finds the RubyController script by looking for a "RubyController" tag on Ruby
        
@@ -44,6 +50,8 @@ public class HardRobot_Script : MonoBehaviour
             print ("Cannot find GameController Script!");
 
         }
+        
+
     }
 
     void Update()
@@ -95,9 +103,25 @@ public class HardRobot_Script : MonoBehaviour
 
         if (player != null)
         {
-            player.ChangeHealth(-2);
+            player.ChangeHealth(-1);
         }
 
+        
+
+    }
+    
+    public void Stun()
+    {
+        broken = true;
+        stun = true;
+        rigidbody2D.simulated = false;
+        animator.SetTrigger("Stun");
+        PlaySound(shockedSoundEffect);
+    }
+
+     public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
     
     //Public because we want to call it from elsewhere like the projectile script

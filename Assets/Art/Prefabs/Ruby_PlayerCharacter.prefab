@@ -105,6 +105,8 @@ MonoBehaviour:
   maxHealth: 5
   projectilePrefab: {fileID: 8468675158442652189, guid: c03be4a2fc9c39245bbe4dcd0d3c5872,
     type: 3}
+  empProjectitlePrefab: {fileID: 4868928978293273912, guid: 64dd1b006f820d34d8765233696682dd,
+    type: 3}
   healthUpPrefab: {fileID: 6839330856390994715, guid: d4e16dc0b457a4745b907f606f68cce8,
     type: 3}
   damagePrefab: {fileID: 1649270136591653907, guid: 4829020fca4753545a51cb15aff7e973,
@@ -119,7 +121,6 @@ MonoBehaviour:
   loseText: {fileID: 0}
   gameOverText: {fileID: 0}
   cogAmmoText: {fileID: 0}
-  timeCogShoot: 4
   gameOver: 0
 --- !u!50 &3727826582550404368
 Rigidbody2D:

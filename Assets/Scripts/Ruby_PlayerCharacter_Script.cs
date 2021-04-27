@@ -12,7 +12,7 @@ public class Ruby_PlayerCharacter_Script : MonoBehaviour
     public int health { get { return currentHealth; }}
     int currentHealth;
 
-    public GameObject projectilePrefab;
+    public GameObject empProjectitlePrefab;
 
     public GameObject healthUpPrefab;
 
@@ -41,11 +41,15 @@ public class Ruby_PlayerCharacter_Script : MonoBehaviour
     public Text loseText;
     public Text gameOverText;
     public Text cogAmmoText;
+    public Text empAmmoText;
     
     private int score;
     private int scoreValue = 0;
     
     private int cogAmmo;
+
+    private int empAmmo;
+    
 
     private Rigidbody2D rd2d;
 
@@ -71,11 +75,12 @@ public class Ruby_PlayerCharacter_Script : MonoBehaviour
         cogAmmo = 4;
         SetCogAmmoText();
 
+        empAmmo = 2;
+        SetEMPAmmoText();
+
         winText.text = " ";
         loseText.text = " ";
         gameOverText.text = " ";
-
-        
 
     }
 
@@ -107,16 +112,19 @@ public class Ruby_PlayerCharacter_Script : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.C))
         {
-            if (cogAmmo >= 1)
+            if (empAmmo >= 1)
             {
                 Launch();
-                cogAmmo = cogAmmo - 1; 
-                SetCogAmmoText();
+                empAmmo = empAmmo - 1; 
+                SetEMPAmmoText();
             }
-            else if (cogAmmo == 0)
+            else if (empAmmo == 0)
             {
-
+                empAmmo = empAmmo + 1;
+                SetEMPAmmoText();
             }
+            
+
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -129,7 +137,18 @@ public class Ruby_PlayerCharacter_Script : MonoBehaviour
                 {
                     character.DisplayDialog();
                 }
+
+                NPC_DogScript dogcharacter = hit.collider.GetComponent<NPC_DogScript>();
+                if (dogcharacter != null)
+                {
+                    dogcharacter.DisplayDialog();
+                }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            
         }
 
         if (Input.GetKey(KeyCode.R))
@@ -175,6 +194,7 @@ public class Ruby_PlayerCharacter_Script : MonoBehaviour
             Instantiate(damagePrefab, transform.position, Quaternion.identity);
             
             PlaySound(hitSound);
+
         }
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
@@ -196,11 +216,14 @@ public class Ruby_PlayerCharacter_Script : MonoBehaviour
 
     }
 
+  
+
     void Launch()
     {
-        GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+            
+        GameObject empProjectitleObject = Instantiate(empProjectitlePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
 
-        CogProjectile projectile = projectileObject.GetComponent<CogProjectile>();
+        EMP_Projectitle projectile = empProjectitleObject.GetComponent<EMP_Projectitle>();
         projectile.Launch(lookDirection, 300);
 
         animator.SetTrigger("Launch");
@@ -230,6 +253,11 @@ public class Ruby_PlayerCharacter_Script : MonoBehaviour
 
     }
     
+    void SetEMPAmmoText()
+    {
+        empAmmoText.text = "Amount of EMP Charges Left: " + empAmmo.ToString();
+
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
        if (collision.collider.tag == "Cog Pickup")
